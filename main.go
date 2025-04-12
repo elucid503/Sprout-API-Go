@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/elucid503/Sprout-API/Functions"
+	"github.com/elucid503/Sprout-API-Go/Functions"
 )
 
 func main() {

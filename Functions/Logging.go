@@ -3,8 +3,8 @@ package Functions
 import (
 	"fmt"
 
-	"github.com/elucid503/Sprout-API/Constants"
-	"github.com/elucid503/Sprout-API/Util"
+	"github.com/elucid503/Sprout-API-Go/Constants"
+	"github.com/elucid503/Sprout-API-Go/Util"
 )
 
 type LogLevel int
