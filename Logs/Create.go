@@ -38,3 +38,27 @@ func Log(ServiceUID string, Level LogLevel, Title string, Content string) error 
 	return Error
 
 }
+
+func GetLogLevelString(Level LogLevel) string {
+
+	switch Level {
+
+		case LogLevelInfo:
+
+			return "INFO"
+
+		case LogLevelWarning:
+
+			return "WARNING"
+
+		case LogLevelError:
+
+			return "ERROR"
+
+		default:
+
+			return "UNKNOWN"
+
+	}
+
+}
