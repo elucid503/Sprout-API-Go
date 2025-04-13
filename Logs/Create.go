@@ -1,4 +1,4 @@
-package Functions
+package Logging
 
 import (
 	"fmt"
