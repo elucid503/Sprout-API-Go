@@ -1,3 +1,3 @@
 package Constants
 
-var LoggingRelayDomain string = "http://localhost:50030"
+var LoggingRelayDomain string = "https://relay.sprout.software"
