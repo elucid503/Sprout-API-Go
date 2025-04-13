@@ -2,6 +2,7 @@ package Logs
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/elucid503/Sprout-API-Go/Constants"
 	"github.com/elucid503/Sprout-API-Go/Util"
@@ -18,24 +19,32 @@ const (
 	LogLevelError   LogLevel = 2
 )
 
-func Log(ServiceUID string, Level LogLevel, Title string, Content string) error {
+// Shared mutex for synchronizing log operations
 
-	Body := map[string]interface{}{
+var LogMutex sync.Mutex
 
-		"Level":   Level,
-		"Title":   Title,
-		"Content": Content,
-	}
+func Log(ServiceUID string, Level LogLevel, Title string, Content string) {
 
-	// Send the log to the logging service
+	go func() {
 
-	_, Error := Util.MakeHTTPRequest(fmt.Sprintf("%s/API/Services/%s/Logs/Create", Constants.LoggingRelayDomain, ServiceUID), "POST", map[string]string{
+		LogMutex.Lock()
+		defer LogMutex.Unlock()
 
-		"Content-Type": "application/json",
+		Body := map[string]interface{}{
+			"Level":   Level,
+			"Title":   Title,
+			"Content": Content,
+		}
 
-	}, Body)
+		// Send the log to the logging service
 
-	return Error
+		Util.MakeHTTPRequest(fmt.Sprintf("%s/API/Services/%s/Logs/Create", Constants.LoggingRelayDomain, ServiceUID), "POST", map[string]string{
+
+			"Content-Type": "application/json",
+
+		}, Body)
+
+	}()
 
 }
 
